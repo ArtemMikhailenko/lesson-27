@@ -32,8 +32,9 @@ let employees = {
     wallet : {},
     pay(munth, sum){
         
-        pay.wallet[munth] = sum;
-    }
+        this.wallet[munth] = sum;
+        return this.wallet
+     }
 }
 
 let frontendDeveloper = {
@@ -49,3 +50,40 @@ Object.setPrototypeOf(backendDeveloper,employees);
 backendDeveloper.pay('june', 1500);
 console.log(backendDeveloper.wallet.june);
 console.log(frontendDeveloper.wallet.june);
+console.log(backendDeveloper)
+
+//Завдання 3
+
+function User (name , age ){
+    this.name = name;
+    this.age = age
+}
+ 
+let user_1 = new User ('Mike', 18)
+let user_2 = {
+    name:'Bob',
+    age : 23,
+    __proto__: user_1
+}
+console.log(user_2);
+
+//Завдання 4
+
+function UserType(name){
+    for(let i=0; i< name.length; ++i){
+        this[i] = name[i];
+        if(i + 1 == name.length){
+            Object.defineProperty(this, 'length',{
+                enumerable: true ,
+                writable: false,
+                configurable: true ,
+                value: i + 1
+            })
+        }
+    }
+    
+}
+
+let admins = new UserType (['Mike','Bob','Nikola']);
+admins.join = Array.prototype.join
+console.log(admins.join('; '));
